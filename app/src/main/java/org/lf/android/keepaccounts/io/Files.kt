@@ -2,8 +2,10 @@ package org.lf.android.keepaccounts.io
 
 import android.util.Log
 import com.google.gson.*
+import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import java.io.File
+import java.io.FileReader
 import java.io.FileWriter
 import java.lang.StringBuilder
 
@@ -12,6 +14,7 @@ class Files(filesDir: File) {
 	private var rootDataDir = File(filesDir.absolutePath + "/Data")
 	
 	fun saveData(data: DataHandler, year: Int, month: Int, day: Int) {
+		Logger.d("file", "Start create ")
 		val file = checkAndCreateMonthFile(year, month)
 		val sb = StringBuilder(file.length().toInt() + 256)
 		sb.append("{").append("\"timeStamp\": ${data.getTimeStamp()}, ")
@@ -31,16 +34,32 @@ class Files(filesDir: File) {
 		sb.append("}")
 		writeData(file, JsonStreamParser(sb.toString()).next())
 	}
-	
-	private fun writeData(file: File, data: JsonElement) {
-		Gson().newBuilder().setPrettyPrinting().create().toJson(data, JsonWriter(FileWriter(file)))
+
+	fun deleteData(file: File, timeStamp: Long) {
+		var toDelete: JsonObject? = null
+		val jsp = JsonStreamParser(FileReader(file)).next().asJsonArray
+		for(jo in jsp) {
+			var tmp = jo.asJsonObject
+			if(tmp.get("timeStamp").asLong == timeStamp) {
+				toDelete = tmp
+			}
+		}
+		if(toDelete != null) {
+			jsp.remove(toDelete)
+		}
 	}
-	
+
+	private fun writeData(file: File, data: JsonElement) {
+		val jsp = JsonStreamParser(FileReader(file)).next().asJsonArray
+		jsp.add(data)
+		Gson().newBuilder().setPrettyPrinting().create().toJson(jsp, JsonWriter(FileWriter(file)))
+	}
+
 	fun checkAndCreateMonthFile(year: Int, month: Int): File {
 		val monthFile = File(checkAndCreateYearDir(year).absolutePath + "/$month.json")
 		if(!monthFile.exists()) {
 			monthFile.createNewFile()
-			val jsp = JsonStreamParser("{}").next()
+			val jsp = JsonStreamParser("[]").next()
 			Gson().newBuilder().setPrettyPrinting().create().toJson(jsp, JsonWriter(FileWriter(monthFile)))
 		}
 		return monthFile

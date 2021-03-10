@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">KeepAccounts</string>
+    <string name="app_name">Simple<br />Keep Accounts</string>
+    <string name="write">New</string>
+    <string name="read">Statistics</string>
+    <string name="out">Pay</string>
+    <string name="in">Income</string>
+    <string name="date">Date</string>
+    <string name="confirm">Confirm</string>
 </resources>

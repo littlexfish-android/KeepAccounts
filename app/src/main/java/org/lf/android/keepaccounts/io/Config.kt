@@ -10,6 +10,8 @@ import java.lang.StringBuilder
 
 object Config {
 	
+	val defaultTag = arrayListOf("食物", "交通", "娛樂", "通常開銷")
+	
 	private lateinit var config: File
 	private lateinit var root: JsonObject
 	
@@ -29,16 +31,16 @@ object Config {
 	fun <T> getConfig(key: String, type: Class<T>): T? {
 		checkConfigNotNull()
 		return when(type) {
-			JsonElement::javaClass -> root.get(key) as T
-			JsonObject::javaClass -> root.get(key) as T
-			JsonArray::javaClass -> root.get(key) as T
-			JsonNull::javaClass -> root.get(key) as T
-			Int::javaClass -> root.get(key).asInt as T
-			Long::javaClass -> root.get(key).asLong as T
-			Float::javaClass -> root.get(key).asFloat as T
-			Double::javaClass -> root.get(key).asDouble as T
-			String::javaClass -> root.get(key).asString as T
-			Boolean::javaClass -> root.get(key).asBoolean as T
+			JsonElement::class.java -> root.get(key) as T
+			JsonObject::class.java -> root.get(key) as T
+			JsonArray::class.java -> root.get(key) as T
+			JsonNull::class.java -> root.get(key) as T
+			Int::class.java -> root.get(key).asInt as T
+			Long::class.java -> root.get(key).asLong as T
+			Float::class.java -> root.get(key).asFloat as T
+			Double::class.java -> root.get(key).asDouble as T
+			String::class.java -> root.get(key).asString as T
+			Boolean::class.java -> root.get(key).asBoolean as T
 			else -> null
 		}
 	}
@@ -49,23 +51,25 @@ object Config {
 	fun setConfig(key: String, value: Any?) {
 		checkConfigNotNull()
 		root.remove(key)
-		if(value is Number) {
-			root.addProperty(key, value)
-		}
-		else if(value is Boolean) {
-			root.addProperty(key, value)
-		}
-		else if(value is String) {
-			root.addProperty(key, value)
-		}
-		else if(value is Char) {
-			root.addProperty(key, value)
-		}
-		else if(value is JsonElement) {
-			root.add(key, value)
-		}
-		else {
-			root.addProperty(key, value.toString())
+		when(value) {
+			is Number -> {
+				root.addProperty(key, value)
+			}
+			is Boolean -> {
+				root.addProperty(key, value)
+			}
+			is String -> {
+				root.addProperty(key, value)
+			}
+			is Char -> {
+				root.addProperty(key, value)
+			}
+			is JsonElement -> {
+				root.add(key, value)
+			}
+			else -> {
+				root.addProperty(key, value.toString())
+			}
 		}
 		writeToFile()
 	}
@@ -95,8 +99,8 @@ object Config {
 		val sb = StringBuilder(100)
 		sb.append("{")
 		//tag
-		sb.append("\"tag\": []")
-		
+		sb.append("\"customTag\": []")
+		//
 		
 		
 		sb.append("}")
