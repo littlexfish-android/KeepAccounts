@@ -8,8 +8,6 @@ class DataHandler {
 	private var tag = ArrayList<String>()
 	
 	var data: Detail
-		get() = data
-		private set(value) {}
 	
 	constructor(toSave: Detail, timeS: Long, vararg tag: String) {
 		data = toSave
@@ -34,7 +32,7 @@ class DataHandler {
 	fun getTagString(): String {
 		val sb = StringBuilder(tag.size * 10)
 		for(str in tag) {
-			sb.append("$str, ")
+			sb.append("\"$str\", ")
 		}
 		return sb.substring(0, sb.length - 2)
 	}

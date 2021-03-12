@@ -7,4 +7,6 @@
     <string name="in">收入</string>
     <string name="date">日期</string>
     <string name="confirm">確認</string>
+    <string name="syncStart">開始同步...</string>
+    <string name="syncFalure">同步失敗</string>
 </resources>

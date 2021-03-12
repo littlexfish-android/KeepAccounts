@@ -2,10 +2,7 @@ package org.lf.android.keepaccounts.io
 
 import com.google.gson.*
 import com.google.gson.stream.JsonWriter
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileReader
-import java.io.FileWriter
+import java.io.*
 import java.lang.StringBuilder
 
 object Config {
@@ -14,11 +11,13 @@ object Config {
 	
 	private lateinit var config: File
 	private lateinit var root: JsonObject
+	private lateinit var element: JsonElement
 	
-	fun setConfigFile(path: String) {
-		if(config != null) {
-			config = File(path)
-			root = JsonStreamParser(FileReader(config)).next().asJsonObject
+	fun setConfigFile(path: File) {
+		if(!::config.isInitialized) {
+			config = checkAndCreateConfig(path)
+			element = JsonStreamParser(FileReader(config)).next()
+			root = element.asJsonObject
 		}
 	}
 	
@@ -75,22 +74,22 @@ object Config {
 	}
 	
 	private fun writeToFile() {
-		Gson().newBuilder().setPrettyPrinting().create().toJson(root, BufferedWriter(FileWriter(config)))
+		write(element.toString())
 	}
 	
 	private fun checkConfigNotNull(): Boolean {
-		if(config == null || root == null) {
+		if(!::config.isInitialized || !::root.isInitialized || !::element.isInitialized) {
 			throw IllegalStateException("Config File Not Initialize")
 		}
 		return true
 	}
 	
-	private fun checkAndCreateConfig(path: String): File {
-		val file = File(path)
-		if(!file.exists()){
+	private fun checkAndCreateConfig(path: File): File {
+		val file = File(path.absolutePath + "/config.json")
+		if(!file.exists()) {
 			file.createNewFile()
 			val jsp = JsonStreamParser(getDefaultConfigJson()).next()
-			Gson().newBuilder().setPrettyPrinting().create().toJson(jsp, JsonWriter(FileWriter(file)))
+			write(file, jsp.toString())
 		}
 		return file
 	}
@@ -105,6 +104,20 @@ object Config {
 		
 		sb.append("}")
 		return sb.toString()
+	}
+	
+	private fun write(content: String) {
+		checkConfigNotNull()
+		val bfw = BufferedWriter(FileWriter(config))
+		bfw.write(content)
+	}
+	
+	private fun write(file: File, content: String) {
+		val fos = FileOutputStream(file)
+		for(char in content) {
+			fos.write(char.toInt())
+		}
+		fos.close()
 	}
 	
 }

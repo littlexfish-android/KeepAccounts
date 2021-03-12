@@ -28,6 +28,7 @@
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/button_bk"
         android:backgroundTintMode="src_over"
+        android:onClick="state"
         android:text="@string/read"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="36sp"

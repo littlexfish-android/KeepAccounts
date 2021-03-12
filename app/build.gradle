@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -41,8 +42,13 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.slice:slice-builders:1.0.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation platform('com.google.firebase:firebase-bom:26.7.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 }

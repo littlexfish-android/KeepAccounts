@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/banner"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="@color/button_bk"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,8 +44,8 @@
 
     <ImageView
         android:id="@+id/goBack"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:scaleType="fitXY"

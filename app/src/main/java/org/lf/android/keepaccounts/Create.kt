@@ -12,6 +12,8 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.JsonArray
 import org.lf.android.keepaccounts.io.Config
+import org.lf.android.keepaccounts.io.DataHandler
+import org.lf.android.keepaccounts.io.Files
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -22,16 +24,22 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
     private lateinit var mTab: TabLayout
     private lateinit var mPager: ViewPager
     
+    private lateinit var backButt: ImageView
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
         
         mTab = findViewById(R.id.tab)
         mPager = findViewById(R.id.viewPager)
-    
+        
+        backButt = findViewById(R.id.goBack)
+        
         mTab.addOnTabSelectedListener(this)
         mTab.setupWithViewPager(mPager)
         mPager.adapter = MyPagerAdapter(this)
+        
+        backButt.setOnClickListener { this.onBackPressed() }
         
     }
     
@@ -48,13 +56,17 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
     }
     
     class MyPagerAdapter(private val act: Activity) : PagerAdapter() {
-    
-        private lateinit var payValue: TextView
+
+        private var year = 0
+        private var month = 0
+        private var day = 0
+
+        private lateinit var payValue: EditText
         private lateinit var payTag: Spinner
         private lateinit var payDate: EditText
         private lateinit var payButt: Button
     
-        private lateinit var incomeValue: TextView
+        private lateinit var incomeValue: EditText
         private lateinit var incomeTag: Spinner
         private lateinit var incomeDate: EditText
         private lateinit var incomeButt: Button
@@ -84,20 +96,35 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     val sdf = SimpleDateFormat.getDateInstance()
                     val calender = Calendar.getInstance()
                     calender.time = d
-        
+                    this.year = calender.get(Calendar.YEAR)
+                    this.month = calender.get(Calendar.MONTH) + 1
+                    this.day = calender.get(Calendar.DAY_OF_MONTH)
+
+                    payDate.isFocusable = false
                     payDate.text.clear()
                     payDate.text.append(sdf.format(calender.time))
                     payDate.setOnClickListener {
                         val date = DatePickerDialog(act)
                         date.updateDate(calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH))
-                        date.setOnDateSetListener { view, year, month, dayOfMonth ->
+                        date.setOnDateSetListener { _, year, month, dayOfMonth ->
                             calender.set(year, month, dayOfMonth)
                             payDate.text.clear()
                             payDate.text.append(sdf.format(calender.time))
+                            this.year = year
+                            this.month = month + 1
+                            this.day = dayOfMonth
                         }
+                        date.show()
                     }
                     
                     payTag.adapter = TagSpinner(act, getCustomTag())
+
+                    payButt.setOnClickListener {
+                        val data = DataHandler(payValue.text.toString().toInt(), System.currentTimeMillis(), payTag.selectedItem.toString())
+                        val file = Files(act.filesDir)
+                        file.saveData(data, year, month, day)
+                        payValue.text.clear()
+                    }
         
                 }
                 else -> {
@@ -105,8 +132,41 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     incomeTag = view.findViewById(R.id.incomeTag)
                     incomeDate = view.findViewById(R.id.incomeDate)
                     incomeButt = view.findViewById(R.id.incomeConfirm)
-                    
-                    
+    
+                    val d = Date()
+                    val sdf = SimpleDateFormat.getDateInstance()
+                    val calender = Calendar.getInstance()
+                    calender.time = d
+                    this.year = calender.get(Calendar.YEAR)
+                    this.month = calender.get(Calendar.MONTH) + 1
+                    this.day = calender.get(Calendar.DAY_OF_MONTH)
+
+                    incomeDate.isFocusable = false
+                    incomeDate.text.clear()
+                    incomeDate.text.append(sdf.format(calender.time))
+                    incomeDate.setOnClickListener {
+                        val date = DatePickerDialog(act)
+                        date.updateDate(calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH))
+                        date.setOnDateSetListener { _, year, month, dayOfMonth ->
+                            calender.set(year, month, dayOfMonth)
+                            incomeDate.text.clear()
+                            incomeDate.text.append(sdf.format(calender.time))
+                            this.year = year
+                            this.month = month + 1
+                            this.day = dayOfMonth
+                        }
+                        date.show()
+                    }
+    
+                    incomeTag.adapter = TagSpinner(act, getCustomTag())
+
+                    incomeButt.setOnClickListener {
+                        val data = DataHandler(incomeValue.text.toString().toInt(), System.currentTimeMillis(), incomeTag.selectedItem.toString())
+                        val file = Files(act.filesDir)
+                        file.saveData(data, year, month, day, false)
+                        incomeValue.text.clear()
+                    }
+
                 }
             }
             container.addView(view)
@@ -121,21 +181,14 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
             container.removeView(`object` as View)
         }
         
-        fun getCustomTag(): ArrayList<String> {
+        private fun getCustomTag(): ArrayList<String> {
+            Config.setConfigFile(act.filesDir)
             val list = ArrayList<String>()
             val config = Config.getConfig("customTag", JsonArray::class.java)
             for(tag in config!!.asJsonArray) {
                 list.add(tag.asString)
             }
             return list
-        }
-        
-        fun pay(v: View?) {
-        
-        }
-    
-        fun income(v: View?) {
-        
         }
         
     }
@@ -159,6 +212,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val view = TextView(act)
             view.text = getItem(position).toString()
+            view.textSize = 20f
             return view
         }
     

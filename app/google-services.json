@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "912083868761",
+    "project_id": "simplekeepaccounts",
+    "storage_bucket": "simplekeepaccounts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912083868761:android:b9e50b7a68238b259c2548",
+        "android_client_info": {
+          "package_name": "org.lf.android.keepaccounts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912083868761-lb7bh28avc7addbpod7dm00dk8i49nks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.lf.android.keepaccounts",
+            "certificate_hash": "e9f8b9ff57816b12f97947c1322f69a2d313641f"
+          }
+        },
+        {
+          "client_id": "912083868761-du356b7o4qkhdn101ahckambum6dl1ju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD38BKdg5bDH8tpe_fUIrXWC55wpaZE61k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912083868761-du356b7o4qkhdn101ahckambum6dl1ju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
