@@ -9,4 +9,6 @@
     <string name="confirm">確認</string>
     <string name="syncStart">開始同步...</string>
     <string name="syncFalure">同步失敗</string>
+    <string name="year_month">年/月</string>
+    <string name="filter">排序方式</string>
 </resources>

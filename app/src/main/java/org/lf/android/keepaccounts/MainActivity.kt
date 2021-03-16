@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
 	fun newRecord(v: View?) {
 		val i = Intent(this, Create::class.java)
 		startActivity(i)
-		
 	}
 	
 	fun state(v: View?) {

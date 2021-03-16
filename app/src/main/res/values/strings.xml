@@ -9,4 +9,6 @@
     <string name="confirm">Confirm</string>
     <string name="syncStart">Starting Synchronize...</string>
     <string name="syncFalure">Synchronize Fail</string>
+    <string name="year_month">Year/Month</string>
+    <string name="filter">Filter</string>
 </resources>
