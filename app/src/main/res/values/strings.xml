@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple <br />Keep Accounts</string>
-    <string name="write">New</string>
-    <string name="read">Statistics</string>
-    <string name="out">Pay</string>
-    <string name="in">Income</string>
-    <string name="date">Date</string>
-    <string name="confirm">Confirm</string>
-    <string name="syncStart">Starting Synchronize...</string>
-    <string name="syncFalure">Synchronize Fail</string>
-    <string name="year_month">Year/Month</string>
-    <string name="filter">Filter</string>
+    <string name="app_name">簡易記帳</string>
+    <string name="write">記帳</string>
+    <string name="read">統計</string>
+    <string name="out">支出</string>
+    <string name="in">收入</string>
+    <string name="date">日期</string>
+    <string name="confirm">確認</string>
+    <string name="syncStart">開始同步...</string>
+    <string name="syncFalure">同步失敗</string>
+    <string name="year_month">年/月</string>
+    <string name="filter">排序方式</string>
+    <string name="settings">設定</string>
+    <string name="autoSync">自動同步</string>
+    <string name="sync">同步</string>
+    <string name="remark">備註</string>
 </resources>

@@ -65,11 +65,13 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
         private lateinit var payTag: Spinner
         private lateinit var payDate: EditText
         private lateinit var payButt: Button
+        private lateinit var payRemark: EditText
     
         private lateinit var incomeValue: EditText
         private lateinit var incomeTag: Spinner
         private lateinit var incomeDate: EditText
         private lateinit var incomeButt: Button
+        private lateinit var incomeRemark: EditText
     
         override fun getCount() = 2
     
@@ -91,6 +93,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     payTag = view.findViewById(R.id.payTag)
                     payDate = view.findViewById(R.id.payDate)
                     payButt = view.findViewById(R.id.payConfirm)
+                    payRemark = view.findViewById(R.id.payRemark)
         
                     val d = Date()
                     val sdf = SimpleDateFormat.getDateInstance()
@@ -120,7 +123,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     payTag.adapter = TagSpinner(act, getCustomTag())
 
                     payButt.setOnClickListener {
-                        val data = DataHandler(payValue.text.toString().toInt(), System.currentTimeMillis(), payTag.selectedItem.toString())
+                        val data = DataHandler(payValue.text.toString().toInt(), System.currentTimeMillis(), payTag.selectedItem.toString(), payRemark.text.toString())
                         val file = Files(act.filesDir)
                         file.saveData(data, year, month, day)
                         payValue.text.clear()
@@ -132,6 +135,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     incomeTag = view.findViewById(R.id.incomeTag)
                     incomeDate = view.findViewById(R.id.incomeDate)
                     incomeButt = view.findViewById(R.id.incomeConfirm)
+                    incomeRemark = view.findViewById(R.id.incomeRemark)
     
                     val d = Date()
                     val sdf = SimpleDateFormat.getDateInstance()
@@ -161,7 +165,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     incomeTag.adapter = TagSpinner(act, getCustomTag())
 
                     incomeButt.setOnClickListener {
-                        val data = DataHandler(incomeValue.text.toString().toInt(), System.currentTimeMillis(), incomeTag.selectedItem.toString())
+                        val data = DataHandler(incomeValue.text.toString().toInt(), System.currentTimeMillis(), incomeTag.selectedItem.toString(), incomeRemark.text.toString())
                         val file = Files(act.filesDir)
                         file.saveData(data, year, month, day, false)
                         incomeValue.text.clear()

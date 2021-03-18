@@ -25,9 +25,9 @@ object Config {
 	 * Acceptable:<br>
 	 * JsonElement, JsonObject, JsonArray, JsonNull,
 	 * Int, Long, Float, Double, String, Boolean.<br>
-	 * or null not in above
+	 * or throw IllegalArgumentException not in above
 	 */
-	fun <T> getConfig(key: String, type: Class<T>): T? {
+	fun <T> getConfig(key: String, type: Class<T>): T {
 		checkConfigNotNull()
 		return when(type) {
 			JsonElement::class.java -> root.get(key) as T
@@ -40,7 +40,7 @@ object Config {
 			Double::class.java -> root.get(key).asDouble as T
 			String::class.java -> root.get(key).asString as T
 			Boolean::class.java -> root.get(key).asBoolean as T
-			else -> null
+			else -> throw IllegalArgumentException("type error")
 		}
 	}
 	
@@ -74,7 +74,8 @@ object Config {
 	}
 	
 	private fun writeToFile() {
-		write(element.toString())
+		val ele = Gson().newBuilder().setPrettyPrinting().create().toJson(root)
+		write(config, ele)
 	}
 	
 	private fun checkConfigNotNull(): Boolean {
@@ -89,7 +90,8 @@ object Config {
 		if(!file.exists()) {
 			file.createNewFile()
 			val jsp = JsonStreamParser(getDefaultConfigJson()).next()
-			write(file, jsp.toString())
+			val ele = Gson().newBuilder().setPrettyPrinting().create().toJson(jsp)
+			write(file, ele)
 		}
 		return file
 	}
@@ -98,18 +100,13 @@ object Config {
 		val sb = StringBuilder(100)
 		sb.append("{")
 		//tag
-		sb.append("\"customTag\": []")
-		//
+		sb.append("\"customTag\": [], ")
+		//sync
+		sb.append("\"autoSync\": false")
 		
 		
 		sb.append("}")
 		return sb.toString()
-	}
-	
-	private fun write(content: String) {
-		checkConfigNotNull()
-		val bfw = BufferedWriter(FileWriter(config))
-		bfw.write(content)
 	}
 	
 	private fun write(file: File, content: String) {

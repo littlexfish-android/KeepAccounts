@@ -5,37 +5,32 @@ import java.lang.StringBuilder
 class DataHandler {
 	
 	private var timeStamp = 0L
-	private var tag = ArrayList<String>()
+	private var tag: String
+	private var remark: String
 	
 	var data: Detail
 	
-	constructor(toSave: Detail, timeS: Long, vararg tag: String) {
+	constructor(toSave: Detail, timeS: Long, tag: String, remark: String) {
 		data = toSave
 		timeStamp = timeS
-		for(str in tag) {
-			this.tag.add(str)
-		}
+		this.tag = tag
+		this.remark = remark
 	}
 	
-	constructor(total: Int, timeS: Long, vararg tag: String) {
+	constructor(total: Int, timeS: Long, tag: String, remark: String) {
 		data = Detail(MoneyType.One, total)
 		timeStamp = timeS
-		for(str in tag) {
-			this.tag.add(str)
-		}
+		this.tag = tag
+		this.remark = remark
 	}
 	
 	fun getTimeStamp(): Long {
 		return timeStamp
 	}
 	
-	fun getTagString(): String {
-		val sb = StringBuilder(tag.size * 10)
-		for(str in tag) {
-			sb.append("\"$str\", ")
-		}
-		return sb.substring(0, sb.length - 2)
-	}
+	fun getTagString() = tag
+	
+	fun getRemark() = remark
 	
 	class Detail {
 		

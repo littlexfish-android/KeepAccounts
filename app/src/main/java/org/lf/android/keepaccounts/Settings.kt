@@ -1,15 +1,12 @@
 package org.lf.android.keepaccounts
 
-import android.content.Intent
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.View
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Switch
+import android.widget.Toast
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.storage.FirebaseStorage
 import org.lf.android.keepaccounts.io.Config
 import org.lf.android.keepaccounts.io.Logger
@@ -17,60 +14,47 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-class MainActivity : AppCompatActivity() {
-
+class Settings : AppCompatActivity() {
+	
 	private val ref = FirebaseStorage.getInstance().reference.child("Data")
 	private lateinit var data: File
 	private lateinit var tmpDir: File
-	
-	private lateinit var drawerLayout: DrawerLayout
-	private lateinit var optionButt: ImageView
-	private lateinit var options: NavigationView
-	
+
+	private lateinit var goBack: ImageView
+	private lateinit var autoSync: SwitchMaterial
+	private lateinit var sync: Button
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
-		
-		drawerLayout = findViewById(R.id.mainDrawer)
-		optionButt = findViewById(R.id.mainOption)
-		options = findViewById(R.id.optionMenu)
+		setContentView(R.layout.activity_settings)
 		
 		data = File(filesDir.absolutePath + "/Data")
 		tmpDir = File(filesDir.absolutePath + "/tmp")
 		if(!tmpDir.exists()) tmpDir.mkdir()
 
-		Config.setConfigFile(filesDir)
+		autoSync = findViewById(R.id.autoSync)
+		goBack = findViewById(R.id.settingsGoBack)
+		sync = findViewById(R.id.settingSync)
 		
-		if(savedInstanceState == null && Config.getConfig("autoSync", Boolean::class.java)) {
-			Handler(Looper.getMainLooper()).postDelayed({syncFromFirebase()}, 1000)
+		if(!resources.getBoolean(R.bool.allowSync)) {
+			autoSync.isEnabled = false
+			sync.isEnabled = false
 		}
-		
-		options.setNavigationItemSelectedListener {
-			when(it.itemId) {
-				R.id.settings -> {
-					val intent = Intent(this, Settings::class.java)
-					startActivity(intent)
-					true
-				}
-				else -> false
-			}
+		else {
+			autoSync.isChecked = Config.getConfig("autoSync", Boolean::class.java)
 		}
-		
-		optionButt.setOnClickListener { drawerLayout.openDrawer(options) }
+
+		goBack.setOnClickListener { onBackPressed() }
+		sync.setOnClickListener { sync() }
 
 	}
 	
-	fun newRecord(v: View?) {
-		val i = Intent(this, Create::class.java)
-		startActivity(i)
+	override fun onBackPressed() {
+		super.onBackPressed()
+		Config.setConfig("autoSync", autoSync.isChecked)
 	}
 	
-	fun state(v: View?) {
-		val i = Intent(this, Statistics::class.java)
-		startActivity(i)
-	}
-
-	private fun syncFromFirebase() {
+	fun sync() {
 		Toast.makeText(this, R.string.syncStart, Toast.LENGTH_SHORT).show()
 		Logger.i("syncFile", "start sync file")
 		val yearDir = ref.list(5)
@@ -114,8 +98,9 @@ class MainActivity : AppCompatActivity() {
 		else {
 			Logger.e("test", "${yearDir.exception}")
 		}
+		
 	}
-
+	
 	private fun getLocalDataPath(dir: String, filename: String): File {
 		Logger.i("getPathDebug", data.absolutePath + "/" + dir + "/" + filename)
 		return File(data.absolutePath + "/" + dir + "/" + filename)

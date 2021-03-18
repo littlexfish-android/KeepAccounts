@@ -16,7 +16,7 @@
         app:srcCompat="@color/button_bk" />
 
     <ImageView
-        android:id="@+id/goBack2"
+        android:id="@+id/statGoBack"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"

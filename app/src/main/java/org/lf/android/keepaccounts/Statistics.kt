@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.SpinnerAdapter
 import android.widget.TextView
 import com.google.gson.JsonObject
@@ -13,13 +14,16 @@ import org.lf.android.keepaccounts.io.HistoryFunc
 import org.lf.android.keepaccounts.io.Logger
 
 class Statistics : AppCompatActivity() {
-	
-	lateinit var yearList: IntArray
+
+	private lateinit var goBack: ImageView
+	private lateinit var yearList: IntArray
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_statistics)
-		
+
+		goBack = findViewById(R.id.statGoBack)
+
 		val extra = intent.extras
 		
 		if(extra == null) {
@@ -31,10 +35,11 @@ class Statistics : AppCompatActivity() {
 			yearList = (extra.getIntArray("year_months") ?: logErrorAndFinish("year_months")) as IntArray
 		}
 		
-		
+		goBack.setOnClickListener { onBackPressed() }
+
 	}
 
-	fun <T> logErrorAndFinish(key: String): T? {
+	private fun <T> logErrorAndFinish(key: String): T? {
 		Logger.e("showHistory", "no $key")
 		finish()
 		return null
