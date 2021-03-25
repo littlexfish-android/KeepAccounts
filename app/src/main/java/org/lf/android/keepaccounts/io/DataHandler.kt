@@ -7,6 +7,7 @@ class DataHandler {
 	private var timeStamp = 0L
 	private var tag: String
 	private var remark: String
+	private val isDetail: Boolean
 	
 	var data: Detail
 	
@@ -15,6 +16,7 @@ class DataHandler {
 		timeStamp = timeS
 		this.tag = tag
 		this.remark = remark
+		isDetail = true
 	}
 	
 	constructor(total: Int, timeS: Long, tag: String, remark: String) {
@@ -22,12 +24,15 @@ class DataHandler {
 		timeStamp = timeS
 		this.tag = tag
 		this.remark = remark
+		isDetail = false
 	}
 	
 	fun getTimeStamp(): Long {
 		return timeStamp
 	}
-	
+
+	fun isDetail() = isDetail
+
 	fun getTagString() = tag
 	
 	fun getRemark() = remark

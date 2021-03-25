@@ -37,24 +37,37 @@ class Settings : AppCompatActivity() {
 		sync = findViewById(R.id.settingSync)
 		
 		if(!resources.getBoolean(R.bool.allowSync)) {
-			autoSync.isEnabled = false
-			sync.isEnabled = false
+			autoSync.setText(R.string.autoSyncDisable)
+			sync.setText(R.string.syncDisable)
+			autoSync.setOnClickListener { disableText("Can't Sync");autoSync.isChecked = false }
+			sync.setOnClickListener { disableText("Can't Sync") }
+//			autoSync.isEnabled = false
+//			sync.isEnabled = false
 		}
 		else {
 			autoSync.isChecked = Config.getConfig("autoSync", Boolean::class.java)
+			sync.setOnClickListener { sync() }
 		}
-
 		goBack.setOnClickListener { onBackPressed() }
-		sync.setOnClickListener { sync() }
 
 	}
-	
+
+	private fun disableText(str: String) {
+		Toast.makeText(this, resources.getString(R.string.disableText, str), Toast.LENGTH_SHORT).show()
+	}
+
 	override fun onBackPressed() {
 		super.onBackPressed()
-		Config.setConfig("autoSync", autoSync.isChecked)
+		if(resources.getBoolean(R.bool.allowSync)) {
+			Config.setConfig("autoSync", autoSync.isChecked)
+		}
+		else {
+			autoSync.isChecked = false
+		}
+		Toast.makeText(this, "Config saved", Toast.LENGTH_SHORT).show()
 	}
 	
-	fun sync() {
+	private fun sync() {
 		Toast.makeText(this, R.string.syncStart, Toast.LENGTH_SHORT).show()
 		Logger.i("syncFile", "start sync file")
 		val yearDir = ref.list(5)

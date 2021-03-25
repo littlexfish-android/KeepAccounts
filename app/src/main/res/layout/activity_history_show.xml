@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/selected"
+    tools:context=".HistoryShow"
+    tools:deviceIds="wear">
+
+
+    <ImageView
+        android:id="@+id/banner5"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/button_bk" />
+
+    <ImageView
+        android:id="@+id/historyGoBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back" />
+
+    <TextView
+        android:id="@+id/hType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Type"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hTypeT"
+        app:layout_constraintStart_toEndOf="@+id/hTypeT"
+        app:layout_constraintTop_toTopOf="@+id/hTypeT" />
+
+    <TextView
+        android:id="@+id/hTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Tag"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hTagT"
+        app:layout_constraintStart_toEndOf="@+id/hTagT"
+        app:layout_constraintTop_toTopOf="@+id/hTagT" />
+
+    <TextView
+        android:id="@+id/hValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Value"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hValueT"
+        app:layout_constraintStart_toEndOf="@+id/hValueT"
+        app:layout_constraintTop_toTopOf="@+id/hValueT" />
+
+    <TextView
+        android:id="@+id/hDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Date"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hDateT"
+        app:layout_constraintStart_toEndOf="@+id/hDateT"
+        app:layout_constraintTop_toTopOf="@+id/hDateT" />
+
+    <TextView
+        android:id="@+id/hRemark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Remark"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/hRemarkT"
+        app:layout_constraintTop_toTopOf="@+id/hRemarkT" />
+
+    <Button
+        android:id="@+id/hShowDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/button_bk"
+        android:text="@string/showDetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hRemarkT" />
+
+    <TextView
+        android:id="@+id/hTypeT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/type"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/banner5" />
+
+    <TextView
+        android:id="@+id/hValueT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/value"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/hTagT"
+        app:layout_constraintTop_toBottomOf="@+id/hTagT" />
+
+    <TextView
+        android:id="@+id/hDateT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/date"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/hValueT"
+        app:layout_constraintTop_toBottomOf="@+id/hValueT" />
+
+    <TextView
+        android:id="@+id/hRemarkT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/remark"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/hDateT"
+        app:layout_constraintTop_toBottomOf="@+id/hDateT" />
+
+    <TextView
+        android:id="@+id/hTagT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/tag"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/hTypeT"
+        app:layout_constraintTop_toBottomOf="@+id/hTypeT" />
+
+    <TextView
+        android:id="@+id/hHShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/keepInfo"
+        android:textColor="@color/blue_word_light"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/historyGoBack"
+        app:layout_constraintStart_toEndOf="@+id/historyGoBack"
+        app:layout_constraintTop_toTopOf="@+id/historyGoBack" />
+
+    <org.lf.android.keepaccounts.view.DetailView
+        android:id="@+id/detailShow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hShowDetail" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

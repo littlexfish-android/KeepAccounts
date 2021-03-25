@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HistoryView">
+        <attr name="tag" format="string" />
+        <attr name="value" format="integer" />
+        <attr name="type" format="string" />
+        <attr name="date" format="string" />
+        <attr name="remark" format="enum">
+            <enum name="income" value="0" />
+            <enum name="pay" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="DetailView">
+        <attr name="tT" format="integer" />
+        <attr name="T" format="integer" />
+        <attr name="fH" format="integer" />
+        <attr name="tH" format="integer" />
+        <attr name="H" format="integer" />
+        <attr name="ft" format="integer" />
+        <attr name="tt" format="integer" />
+        <attr name="t" format="integer" />
+        <attr name="f" format="integer" />
+        <attr name="o" format="integer" />
+    </declare-styleable>
+</resources>

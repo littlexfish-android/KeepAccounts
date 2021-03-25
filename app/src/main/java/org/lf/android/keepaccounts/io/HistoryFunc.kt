@@ -9,7 +9,7 @@ import java.io.FileReader
 object HistoryFunc {
 	
 	fun getFileFromYearMonth(parent: File, year: Int, month: Int): JsonArray {
-		val file = File(parent.absolutePath + "/$year/$month.json")
+		val file = File(parent.absolutePath + "/Data/$year/$month.json")
 		if(!file.exists()) {
 			Logger.e("historyFile", "file not found: ${file.absolutePath}")
 			throw FileNotFoundException(file.absolutePath)
@@ -19,7 +19,7 @@ object HistoryFunc {
 	
 	fun getFileShowName(parent: File): Array<String> {
 		val list = ArrayList<String>(10)
-		val dirList = parent.listFiles()
+		val dirList = File("${parent.absolutePath}/Data").listFiles()
 		for(dir in dirList) {
 			val files = dir.listFiles()
 			for(file in files) {

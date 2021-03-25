@@ -22,26 +22,30 @@ class Files(filesDir: File) {
 		checkAndCreateRootDir()
 	}
 
-	fun saveData(data: DataHandler, year: Int, month: Int, day: Int, isPay: Boolean = true) {
+	fun saveData(data: DataHandler, year: Int, month: Int, day: Int, localeDate: String, isPay: Boolean = true) {
 		Logger.d("file", "Start create ")
 		val file = checkAndCreateMonthFile(year, month)
 		val sb = StringBuilder(file.length().toInt() + 256)
 		sb.append("{").append("\"timeStamp\": ${data.getTimeStamp()}, ")
 		sb.append("\"type\": \"").append(when(isPay) {true -> "pay";false -> "income"}).append("\", ")
+		sb.append("\"localeDate\": \"$localeDate\", ")
 		sb.append("\"date\": \"$year/$month/$day\", ")
-		sb.append("\"tag\": ${data.getTagString()}, ")
+		sb.append("\"tag\": \"${data.getTagString()}\", ")
 		sb.append("\"remark\": \"${data.getRemark()}\", ")
 		sb.append("\"total\": ${data.data.count()}, ")
-		sb.append("\"detail\": {").append("\"twoThousand\": ${data.data.twoThousand}, ")
-		sb.append("\"thousand\": ${data.data.thousand}, ")
-		sb.append("\"fiveHundred\": ${data.data.fiveHundred}, ")
-		sb.append("\"twoHundred\": ${data.data.twoHundred}, ")
-		sb.append("\"hundred\": ${data.data.hundred}, ")
-		sb.append("\"fifty\": ${data.data.fifty}, ")
-		sb.append("\"twenty\": ${data.data.twenty}, ")
-		sb.append("\"ten\": ${data.data.ten}, ")
-		sb.append("\"five\": ${data.data.five}, ")
-		sb.append("\"one\": ${data.data.one}").append("}")
+		sb.append("\"hasDetail\": ${data.isDetail()}")
+		if(data.isDetail()) {
+			sb.append(", \"detail\": {").append("\"twoThousand\": ${data.data.twoThousand}, ")
+			sb.append("\"thousand\": ${data.data.thousand}, ")
+			sb.append("\"fiveHundred\": ${data.data.fiveHundred}, ")
+			sb.append("\"twoHundred\": ${data.data.twoHundred}, ")
+			sb.append("\"hundred\": ${data.data.hundred}, ")
+			sb.append("\"fifty\": ${data.data.fifty}, ")
+			sb.append("\"twenty\": ${data.data.twenty}, ")
+			sb.append("\"ten\": ${data.data.ten}, ")
+			sb.append("\"five\": ${data.data.five}, ")
+			sb.append("\"one\": ${data.data.one}").append("}")
+		}
 		sb.append("}")
 		writeData(year, file, JsonStreamParser(sb.toString()).next())
 	}
@@ -103,7 +107,7 @@ class Files(filesDir: File) {
 	}
 
 	private fun uploadFile(dir: Int, file: File) {
-		val uploadRef = ref.child("$dir/${file.name}").putFile(file.toUri()).addOnSuccessListener {
+		ref.child("$dir/${file.name}").putFile(file.toUri()).addOnSuccessListener {
 			Logger.i("uploadFile", "upload: ${file.absolutePath} to ${it.storage.path}")
 		}.addOnFailureListener {
 			Logger.e("uploadFile", "uploadError on: \n${it.stackTrace}")

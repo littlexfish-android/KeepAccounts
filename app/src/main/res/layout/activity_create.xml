@@ -65,4 +65,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/write"
+        android:textColor="@color/blue_word_light"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/goBack"
+        app:layout_constraintStart_toEndOf="@+id/goBack"
+        app:layout_constraintTop_toTopOf="@+id/goBack" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

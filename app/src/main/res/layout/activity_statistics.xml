@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/selected"
     tools:context=".Statistics">
 
     <ImageView
@@ -70,8 +71,26 @@
         android:id="@+id/historyList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/selected"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterT" />
+        app:layout_constraintTop_toBottomOf="@+id/filterT"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/statT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/read"
+        android:textColor="@color/blue_word_light"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/statGoBack"
+        app:layout_constraintStart_toEndOf="@+id/statGoBack"
+        app:layout_constraintTop_toTopOf="@+id/statGoBack" />
 </androidx.constraintlayout.widget.ConstraintLayout>

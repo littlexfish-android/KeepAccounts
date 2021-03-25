@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
 		Config.setConfigFile(filesDir)
 		
-		if(savedInstanceState == null && Config.getConfig("autoSync", Boolean::class.java)) {
+		if(savedInstanceState == null && Config.getConfig("autoSync", Boolean::class.java) && resources.getBoolean(R.bool.allowSync)) {
 			Handler(Looper.getMainLooper()).postDelayed({syncFromFirebase()}, 1000)
 		}
 		
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 		optionButt.setOnClickListener { drawerLayout.openDrawer(options) }
 
 	}
-	
+
 	fun newRecord(v: View?) {
 		val i = Intent(this, Create::class.java)
 		startActivity(i)

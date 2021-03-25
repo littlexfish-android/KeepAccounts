@@ -125,8 +125,9 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     payButt.setOnClickListener {
                         val data = DataHandler(payValue.text.toString().toInt(), System.currentTimeMillis(), payTag.selectedItem.toString(), payRemark.text.toString())
                         val file = Files(act.filesDir)
-                        file.saveData(data, year, month, day)
+                        file.saveData(data, year, month, day, payDate.text.toString())
                         payValue.text.clear()
+                        payRemark.text.clear()
                     }
         
                 }
@@ -167,8 +168,9 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     incomeButt.setOnClickListener {
                         val data = DataHandler(incomeValue.text.toString().toInt(), System.currentTimeMillis(), incomeTag.selectedItem.toString(), incomeRemark.text.toString())
                         val file = Files(act.filesDir)
-                        file.saveData(data, year, month, day, false)
+                        file.saveData(data, year, month, day, incomeDate.text.toString(), false)
                         incomeValue.text.clear()
+                        incomeRemark.text.clear()
                     }
 
                 }
@@ -189,7 +191,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
             Config.setConfigFile(act.filesDir)
             val list = ArrayList<String>()
             val config = Config.getConfig("customTag", JsonArray::class.java)
-            for(tag in config!!.asJsonArray) {
+            for(tag in config.asJsonArray) {
                 list.add(tag.asString)
             }
             return list
