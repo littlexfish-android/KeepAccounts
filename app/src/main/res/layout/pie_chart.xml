@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/pieOther"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/other"
+        android:textAlignment="center"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/pieColorOther"
+        app:layout_constraintTop_toBottomOf="@+id/pieTrans" />
+
+    <ImageView
+        android:id="@+id/pieColorOther"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pieOther"
+        app:layout_constraintStart_toEndOf="@+id/pieUsually"
+        app:layout_constraintTop_toTopOf="@+id/pieOther"
+        app:srcCompat="@color/pie_other" />
+
+    <TextView
+        android:id="@+id/pieUsually"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usually"
+        android:textAlignment="center"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/pieColorUsually"
+        app:layout_constraintTop_toBottomOf="@+id/pieFood" />
+
+    <ImageView
+        android:id="@+id/pieColorPlay"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/piePlay"
+        app:layout_constraintStart_toEndOf="@+id/pieTrans"
+        app:layout_constraintTop_toTopOf="@+id/piePlay"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@color/pie_play" />
+
+    <TextView
+        android:id="@+id/piePlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:textAlignment="center"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/pieColorPlay"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+    <ImageView
+        android:id="@+id/pieColorUsually"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pieUsually"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pieUsually"
+        app:srcCompat="@color/pie_usually" />
+
+    <TextView
+        android:id="@+id/pieTrans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trans"
+        android:textAlignment="center"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/pieColorTrans"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+    <ImageView
+        android:id="@+id/pieColorTrans"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pieTrans"
+        app:layout_constraintStart_toEndOf="@+id/pieFood"
+        app:layout_constraintTop_toTopOf="@+id/pieTrans"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@color/pie_trans" />
+
+    <ImageView
+        android:id="@+id/pieChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pie_chart_base" />
+
+    <TextView
+        android:id="@+id/pieFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/food"
+        android:textAlignment="center"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/pieColorFood"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+    <ImageView
+        android:id="@+id/pieColorFood"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pieFood"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pieFood"
+        app:srcCompat="@color/pie_food" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

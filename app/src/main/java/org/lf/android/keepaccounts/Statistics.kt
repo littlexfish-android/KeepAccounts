@@ -33,17 +33,6 @@ class Statistics : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 		yearMonth = findViewById(R.id.yearChoose)
 		filter = findViewById(R.id.filterChoose)
 		
-//		val extra = intent.extras
-		
-//		if(extra == null) {
-//			Logger.e("showHistory", "no extra")
-//			finish()
-//		}
-//
-//		if(extra != null) {
-//			yearList = (extra.getIntArray("year_months") ?: logErrorAndFinish("year_months")) as IntArray
-//		}
-		
 		filter.adapter = FilterSpinnerAdapter(this)
 		filter.onItemSelectedListener = this
 		

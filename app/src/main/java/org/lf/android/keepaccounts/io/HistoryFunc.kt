@@ -20,10 +20,14 @@ object HistoryFunc {
 	fun getFileShowName(parent: File): Array<String> {
 		val list = ArrayList<String>(10)
 		val dirList = File("${parent.absolutePath}/Data").listFiles()
-		for(dir in dirList) {
-			val files = dir.listFiles()
-			for(file in files) {
-				list.add("${dir.name}/${file.name.substring(0, file.name.length - 5)}")
+		if(dirList != null) {
+			for(dir in dirList) {
+				val files = dir.listFiles()
+				if(files != null) {
+					for(file in files) {
+						list.add("${dir.name}/${file.name.substring(0, file.name.length - 5)}")
+					}
+				}
 			}
 		}
 		return list.toArray(arrayOf(""))

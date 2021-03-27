@@ -68,8 +68,13 @@ class Settings : AppCompatActivity() {
 	}
 	
 	private fun sync() {
+		if((System.currentTimeMillis() - Config.getConfig("lastSync", Long::class.java)) < resources.getInteger(R.integer.syncInterval)) {
+			Toast.makeText(this, R.string.syncTooFast, Toast.LENGTH_SHORT).show()
+			return
+		}
 		Toast.makeText(this, R.string.syncStart, Toast.LENGTH_SHORT).show()
 		Logger.i("syncFile", "start sync file")
+		Config.setConfig("lastSync", System.currentTimeMillis())
 		val yearDir = ref.list(5)
 		while(!yearDir.isComplete);
 		if(yearDir.isSuccessful) {

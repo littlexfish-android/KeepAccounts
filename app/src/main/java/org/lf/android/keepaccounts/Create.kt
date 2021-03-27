@@ -20,6 +20,8 @@ import kotlin.collections.ArrayList
 
 
 class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
+    
+    var defaultTag = arrayOf("食物", "交通", "娛樂", "通常開銷")
 
     private lateinit var mTab: TabLayout
     private lateinit var mPager: ViewPager
@@ -30,6 +32,10 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
         
+        defaultTag = resources.getStringArray(R.array.defaultTag)
+        
+        //TODO: if input "-", it will change pay to income or back
+
         mTab = findViewById(R.id.tab)
         mPager = findViewById(R.id.viewPager)
         
@@ -55,7 +61,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
     
     }
     
-    class MyPagerAdapter(private val act: Activity) : PagerAdapter() {
+    class MyPagerAdapter(private val act: Create) : PagerAdapter() {
 
         private var year = 0
         private var month = 0
@@ -123,6 +129,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     payTag.adapter = TagSpinner(act, getCustomTag())
 
                     payButt.setOnClickListener {
+                        if(payValue.text.toString() == "") return@setOnClickListener
                         val data = DataHandler(payValue.text.toString().toInt(), System.currentTimeMillis(), payTag.selectedItem.toString(), payRemark.text.toString())
                         val file = Files(act.filesDir)
                         file.saveData(data, year, month, day, payDate.text.toString())
@@ -166,6 +173,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     incomeTag.adapter = TagSpinner(act, getCustomTag())
 
                     incomeButt.setOnClickListener {
+                        if(incomeValue.text.toString() == "") return@setOnClickListener
                         val data = DataHandler(incomeValue.text.toString().toInt(), System.currentTimeMillis(), incomeTag.selectedItem.toString(), incomeRemark.text.toString())
                         val file = Files(act.filesDir)
                         file.saveData(data, year, month, day, incomeDate.text.toString(), false)
@@ -199,14 +207,14 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
         
     }
     
-    class TagSpinner(private val act: Activity, private val list: ArrayList<String>): BaseAdapter(), SpinnerAdapter {
+    class TagSpinner(private val act: Create, private val list: ArrayList<String>): BaseAdapter(), SpinnerAdapter {
         
-        override fun getCount() = list.size + Config.defaultTag.size
+        override fun getCount() = list.size + act.defaultTag.size
     
         override fun getItem(position: Int): Any {
             return when(position) {
-                in 0 until Config.defaultTag.size -> Config.defaultTag[position]
-                in Config.defaultTag.size until list.size + Config.defaultTag.size -> list[Config.defaultTag.size + position]
+                in act.defaultTag.indices -> act.defaultTag[position]
+                in act.defaultTag.size until list.size + act.defaultTag.size -> list[act.defaultTag.size + position]
                 else -> throw ArrayIndexOutOfBoundsException()
             }
         }

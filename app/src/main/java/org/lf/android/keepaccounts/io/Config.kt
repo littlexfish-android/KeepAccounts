@@ -7,7 +7,9 @@ import java.lang.StringBuilder
 
 object Config {
 	
-	val defaultTag = arrayListOf("食物", "交通", "娛樂", "通常開銷")
+	
+	private const val writeInterval = 1000
+	var lastWriteConfig = System.currentTimeMillis()
 	
 	private lateinit var config: File
 	private lateinit var root: JsonObject
@@ -70,10 +72,17 @@ object Config {
 				root.addProperty(key, value.toString())
 			}
 		}
+		if((System.currentTimeMillis() - lastWriteConfig) > writeInterval) {
+			writeToFile()
+		}
+	}
+	
+	fun forceWrite() {
 		writeToFile()
 	}
 	
 	private fun writeToFile() {
+		lastWriteConfig = System.currentTimeMillis()
 		val ele = Gson().newBuilder().setPrettyPrinting().create().toJson(root)
 		write(config, ele)
 	}
@@ -102,8 +111,13 @@ object Config {
 		//tag
 		sb.append("\"customTag\": [], ")
 		//sync
-		sb.append("\"autoSync\": false")
-		
+		sb.append("\"lastSync\": 0, ")
+		sb.append("\"autoSync\": false, ")
+		//total & detail
+		sb.append("\"lastRecord\": 0, ")
+		sb.append("\"total\": 0, ")
+		sb.append("\"hasDetail\": true, ")
+		sb.append("\"detail\": {\"twoThousand\": 0, \"thousand\": 0, \"fiveHundred\": 0, \"twoHundred\": 0, \"hundred\": 0, \"fifty\": 0, \"twenty\": 0, \"ten\": 0, \"five\": 0, \"one\": 0}")
 		
 		sb.append("}")
 		return sb.toString()

@@ -22,4 +22,15 @@
         <attr name="f" format="integer" />
         <attr name="o" format="integer" />
     </declare-styleable>
+    <declare-styleable name="PieChartView">
+        <attr name="food" format="string|reference" />
+        <attr name="food_value" format="fraction" />
+        <attr name="trans" format="string|reference" />
+        <attr name="trans_value" format="fraction" />
+        <attr name="play" format="string|reference" />
+        <attr name="play_value" format="fraction" />
+        <attr name="usually" format="string|reference" />
+        <attr name="usually_value" format="fraction" />
+        <attr name="other" format="string|reference" />
+    </declare-styleable>
 </resources>

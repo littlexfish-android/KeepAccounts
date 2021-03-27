@@ -64,6 +64,8 @@ class HistoryShow : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.historyGoBack).setOnClickListener { onBackPressed() }
 
+        
+
     }
 
 }

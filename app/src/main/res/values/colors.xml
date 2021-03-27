@@ -19,4 +19,12 @@
     <color name="blue_word_light">#42A5F5</color>
     <color name="border_color">#3000</color>
     <color name="light_blue_400">#FF29B6F6</color>
+
+    <!-- for pie chart -->
+    <color name="pie_food">#EC407A</color>
+    <color name="pie_trans">#D4E157</color>
+    <color name="pie_play">#66BB6A</color>
+    <color name="pie_usually">#5C6BC0</color>
+    <color name="pie_other">#AAAAAA</color>
+
 </resources>
