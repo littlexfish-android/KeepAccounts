@@ -3,6 +3,7 @@ package org.lf.android.keepaccounts
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -93,6 +94,7 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                 0 -> act.layoutInflater.inflate(R.layout.pay, container, false)
                 else -> act.layoutInflater.inflate(R.layout.income, container, false)
             }
+            //TODO: custom tag and delete custom tag
             when(position) {
                 0 -> {
                     payValue = view.findViewById(R.id.payValue)
@@ -100,6 +102,20 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     payDate = view.findViewById(R.id.payDate)
                     payButt = view.findViewById(R.id.payConfirm)
                     payRemark = view.findViewById(R.id.payRemark)
+                    
+                    //TODO: check normally run
+                    payValue.setOnKeyListener { _, keyCode, event ->
+                        if(keyCode == KeyEvent.KEYCODE_MINUS) {
+                            act.mTab.selectTab(act.mTab.getTabAt(1))
+                            incomeRemark.text.clear()
+                            incomeRemark.text.append(payRemark.text.toString())
+                            incomeTag.setSelection(payTag.selectedItemPosition)
+                            payValue.text.clear()
+                            payRemark.text.clear()
+                            return@setOnKeyListener false
+                        }
+                        return@setOnKeyListener true
+                    }
         
                     val d = Date()
                     val sdf = SimpleDateFormat.getDateInstance()
@@ -152,6 +168,20 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     this.year = calender.get(Calendar.YEAR)
                     this.month = calender.get(Calendar.MONTH) + 1
                     this.day = calender.get(Calendar.DAY_OF_MONTH)
+    
+                    //TODO: check normally run
+                    incomeValue.setOnKeyListener { _, keyCode, _ ->
+                        if(keyCode == KeyEvent.KEYCODE_MINUS) {
+                            act.mTab.selectTab(act.mTab.getTabAt(0))
+                            payRemark.text.clear()
+                            payRemark.text.append(incomeRemark.text.toString())
+                            payTag.setSelection(payTag.selectedItemPosition)
+                            payValue.text.clear()
+                            payRemark.text.clear()
+                            return@setOnKeyListener false
+                        }
+                        return@setOnKeyListener true
+                    }
 
                     incomeDate.isFocusable = false
                     incomeDate.text.clear()

@@ -39,6 +39,7 @@ class Statistics : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 		yearMonth.adapter = YearMonthSpinnerAdapter(this)
 		yearMonth.onItemSelectedListener = this
 		
+		//TODO: delete record
 		historyList.adapter = ListContent(this, yearMonth.selectedItem.toString())
 		
 		goBack.setOnClickListener { onBackPressed() }
