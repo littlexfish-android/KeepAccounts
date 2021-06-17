@@ -1,6 +1,5 @@
 package org.lf.android.keepaccounts
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -21,6 +20,7 @@ import org.lf.android.keepaccounts.io.Config
 import org.lf.android.keepaccounts.io.Logger
 import org.lf.android.keepaccounts.view.DetailView
 import org.lf.android.keepaccounts.view.PieChartView
+import org.lf.android.keepaccounts.view.PieView
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -77,6 +77,12 @@ class MainActivity : AppCompatActivity() {
 				R.id.settings -> {
 					val intent = Intent(this, Settings::class.java)
 					startActivity(intent)
+					true
+				}
+				R.id.settingsSt -> {
+					val intent = Intent(this, AllOfRecord::class.java)
+					startActivity(intent)
+
 					true
 				}
 				else -> false
@@ -183,7 +189,12 @@ class MainActivity : AppCompatActivity() {
 					for(file in allFiles) {
 						val json = JsonStreamParser(FileReader(file)).next().asJsonArray
 						for(obj in json) {
-							total += obj.asJsonObject.get("total").asInt
+							if(obj.asJsonObject.get("type").asString == "income") {
+								total += obj.asJsonObject.get("total").asInt
+							}
+							else {
+								total -= obj.asJsonObject.get("total").asInt
+							}
 						}
 					}
 				}
@@ -216,16 +227,31 @@ class MainActivity : AppCompatActivity() {
 								return
 							}
 							val detailObj = obj.asJsonObject.get("detail").asJsonObject
-							detailArr[0] += detailObj.get("twoThousand").asInt
-							detailArr[1] += detailObj.get("thousand").asInt
-							detailArr[2] += detailObj.get("fiveHundred").asInt
-							detailArr[3] += detailObj.get("twoHundred").asInt
-							detailArr[4] += detailObj.get("hundred").asInt
-							detailArr[5] += detailObj.get("fifty").asInt
-							detailArr[6] += detailObj.get("twenty").asInt
-							detailArr[7] += detailObj.get("ten").asInt
-							detailArr[8] += detailObj.get("five").asInt
-							detailArr[9] += detailObj.get("one").asInt
+							if(obj.asJsonObject.get("type").asString == "income") {
+								detailArr[0] += detailObj.get("twoThousand").asInt
+								detailArr[1] += detailObj.get("thousand").asInt
+								detailArr[2] += detailObj.get("fiveHundred").asInt
+								detailArr[3] += detailObj.get("twoHundred").asInt
+								detailArr[4] += detailObj.get("hundred").asInt
+								detailArr[5] += detailObj.get("fifty").asInt
+								detailArr[6] += detailObj.get("twenty").asInt
+								detailArr[7] += detailObj.get("ten").asInt
+								detailArr[8] += detailObj.get("five").asInt
+								detailArr[9] += detailObj.get("one").asInt
+							}
+							else {
+								detailArr[0] -= detailObj.get("twoThousand").asInt
+								detailArr[1] -= detailObj.get("thousand").asInt
+								detailArr[2] -= detailObj.get("fiveHundred").asInt
+								detailArr[3] -= detailObj.get("twoHundred").asInt
+								detailArr[4] -= detailObj.get("hundred").asInt
+								detailArr[5] -= detailObj.get("fifty").asInt
+								detailArr[6] -= detailObj.get("twenty").asInt
+								detailArr[7] -= detailObj.get("ten").asInt
+								detailArr[8] -= detailObj.get("five").asInt
+								detailArr[9] -= detailObj.get("one").asInt
+							}
+							
 						}
 					}
 				}
@@ -275,6 +301,12 @@ class MainActivity : AppCompatActivity() {
 		val playPer = playCount / sum.toFloat()
 		val usuallyPer = usuallyCount / sum.toFloat()
 		pie.setPieValue(foodPer, transPer, playPer, usuallyPer)
+		Handler(Looper.getMainLooper()).postDelayed({findViewById<PieView>(R.id.pie_view).setValues(foodPer, transPer, playPer, usuallyPer)}, 1000)
+		findViewById<PieView>(R.id.pie_view).setOnClickListener {
+			//TODO: test
+			val i = Intent(this, AllOfRecord::class.java)
+			startActivity(i)
+		}
 	}
-	
+
 }

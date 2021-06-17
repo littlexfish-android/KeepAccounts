@@ -54,7 +54,10 @@ class HistoryView : ConstraintLayout {
 		dateView.text = date
 		valueView.text = "\$$value"
 		remarkView.text = remark
-		typeView.text = type
+		typeView.text = when(type) {
+			"income" -> resources.getString(R.string.`in`)
+			else -> resources.getString(R.string.out)
+		}
 	}
 
 	private fun checkType(type: String) {

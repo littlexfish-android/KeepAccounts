@@ -33,4 +33,7 @@
         <attr name="usually_value" format="fraction" />
         <attr name="other" format="string|reference" />
     </declare-styleable>
+    <declare-styleable name="PieView">
+        <attr name="values" format="string" />
+    </declare-styleable>
 </resources>

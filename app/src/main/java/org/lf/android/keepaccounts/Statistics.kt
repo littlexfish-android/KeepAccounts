@@ -211,7 +211,6 @@ class Statistics : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 			month = yearMonth[1].toInt()
 		}
 
-		//TODO: call when click item
 		private fun callDetailShow(pos: Int) {
 			val i = Intent(act, HistoryShow::class.java)
 			i.putExtra("content", actualHistory[pos].toString())

@@ -105,16 +105,15 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     
                     //TODO: check normally run
                     payValue.setOnKeyListener { _, keyCode, event ->
-                        if(keyCode == KeyEvent.KEYCODE_MINUS) {
+                        if(event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_MINUS && payValue.text.toString() == "-") {
                             act.mTab.selectTab(act.mTab.getTabAt(1))
                             incomeRemark.text.clear()
                             incomeRemark.text.append(payRemark.text.toString())
                             incomeTag.setSelection(payTag.selectedItemPosition)
                             payValue.text.clear()
                             payRemark.text.clear()
-                            return@setOnKeyListener false
                         }
-                        return@setOnKeyListener true
+                        false
                     }
         
                     val d = Date()
@@ -170,17 +169,17 @@ class Create : AppCompatActivity(), TabLayout.OnTabSelectedListener  {
                     this.day = calender.get(Calendar.DAY_OF_MONTH)
     
                     //TODO: check normally run
-                    incomeValue.setOnKeyListener { _, keyCode, _ ->
-                        if(keyCode == KeyEvent.KEYCODE_MINUS) {
+                    incomeValue.setOnKeyListener { _, keyCode, event ->
+                        if(event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_MINUS && incomeValue.text.toString() == "-") {
                             act.mTab.selectTab(act.mTab.getTabAt(0))
                             payRemark.text.clear()
                             payRemark.text.append(incomeRemark.text.toString())
                             payTag.setSelection(payTag.selectedItemPosition)
-                            payValue.text.clear()
-                            payRemark.text.clear()
-                            return@setOnKeyListener false
+                            incomeValue.text.clear()
+                            incomeRemark.text.clear()
+                            true
                         }
-                        return@setOnKeyListener true
+                        false
                     }
 
                     incomeDate.isFocusable = false

@@ -2,7 +2,13 @@
     android:viewportHeight="24" android:viewportWidth="24"
     android:width="100dp" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <path android:fillColor="@android:color/white"
-        android:pathData="M12,2C6.47,2 2,6.47 2,12s4.47,10 10,10 10,-4.47 10,-10S17.53,2 12,2z"/>
+    <group android:pivotX="12" android:pivotY="12"
+        android:scaleY="1" android:scaleX="1">
+
+        <path android:fillColor="@android:color/white"
+            android:pathData="M12,0 A12,12 0,0 1,12 24 A12,12 0,0 1,12 0"/>
+
+    </group>
+
 
 </vector>

@@ -2,7 +2,8 @@
 <resources>
     <string name="app_name">簡易記帳</string>
     <string name="write">記帳</string>
-    <string name="read">統計</string>
+    <string name="read">紀錄</string>
+    <string name="stat">統計</string>
     <string name="out">支出</string>
     <string name="in">收入</string>
     <string name="confirm">確認</string>
@@ -34,7 +35,7 @@
     <string name="usually">通常開銷</string>
     <string name="other">其他</string>
 
-    <string name="showPieDetail" translatable="false" formatted="true">%1$s: %2$f%%, %3$s: %4$f%%, %5$s: %6$f%%, %7$s: %8$f%%, %9$s: %10$f%%</string>
+    <string name="showPieDetail" formatted="true" translatable="false">%1$s: %2$.2f%%, %3$s: %4$.2f%%, %5$s: %6$.2f%%, %7$s: %8$.2f%%, %9$s: %10$.2f%%</string>
 
     <string-array name="defaultTag">
         <item>食物</item>
@@ -52,4 +53,10 @@
         <item>支出/收入</item>
         <item>標籤</item>
     </string-array>
+
+    <string-array name="statSpinner">
+        <item>標籤</item>
+        <item>支出入</item>
+    </string-array>
+
 </resources>

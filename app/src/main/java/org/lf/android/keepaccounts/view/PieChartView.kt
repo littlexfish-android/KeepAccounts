@@ -1,10 +1,8 @@
 package org.lf.android.keepaccounts.view
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.RectF
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -54,8 +52,8 @@ class PieChartView : ConstraintLayout {
 		usuallyValue = usually
 		otherValue = 1f - foodValue - transValue - playValue - usuallyValue
 		
-		val showText = resources.getString(R.string.showPieDetail, resources.getString(R.string.food), foodValue / 100, resources.getString(R.string.trans), transValue / 100,
-				resources.getString(R.string.play), playValue / 100, resources.getString(R.string.usually), usuallyValue / 100, resources.getString(R.string.other),otherValue / 100)
+		val showText = resources.getString(R.string.showPieDetail, resources.getString(R.string.food), foodValue * 100, resources.getString(R.string.trans), transValue * 100,
+				resources.getString(R.string.play), playValue * 100, resources.getString(R.string.usually), usuallyValue * 100, resources.getString(R.string.other),otherValue * 100)
 		pie.setOnLongClickListener { Toast.makeText(context, showText, Toast.LENGTH_SHORT).show();true }
 		
 		drawPie()
@@ -119,32 +117,38 @@ class PieChartView : ConstraintLayout {
 		
 		val pieDrawable = ResourcesCompat.getDrawable(resources, R.drawable.pie_chart_base, null)
 		if(pieDrawable != null) {
-			val canvas = Canvas(pieDrawable.toBitmap())
+			val bit = pieDrawable.toBitmap()
+			val canvas = Canvas(bit)
 			val rect = RectF(0f, 0f, canvas.width.toFloat(), canvas.height.toFloat())
 			var angle = 0f
 			val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 			
 			//food
 			paint.color = resources.getColor(R.color.pie_food, null)
-			canvas.drawArc(rect, calPercentageToDegrees(angle), calPercentageToDegrees(angle + foodValue), true, paint)
+			canvas.drawArc(rect, calPercentageToDegrees(angle), calPercentageToDegrees(foodValue), true, paint)
 			angle += foodValue
 			
 			//trans
 			paint.color = resources.getColor(R.color.pie_trans, null)
-			canvas.drawArc(rect, calPercentageToDegrees(angle), calPercentageToDegrees(angle + transValue), true, paint)
+			canvas.drawArc(rect, calPercentageToDegrees(angle), calPercentageToDegrees(transValue), true, paint)
 			angle += transValue
 			
 			//play
 			paint.color = resources.getColor(R.color.pie_play, null)
-			canvas.drawArc(rect, calPercentageToDegrees(angle), calPercentageToDegrees(angle + playValue), true, paint)
+			canvas.drawArc(rect, calPercentageToDegrees(angle), calPercentageToDegrees(playValue), true, paint)
 			angle += playValue
 			
 			//usually
 			paint.color = resources.getColor(R.color.pie_usually, null)
-			canvas.drawArc(rect, calPercentageToDegrees(angle), calPercentageToDegrees(angle + usuallyValue), true, paint)
+			canvas.drawArc(rect, calPercentageToDegrees(angle), calPercentageToDegrees(usuallyValue), true, paint)
 			
 			//toPie
-			pie.setImageDrawable(pieDrawable)
+			canvas.save()
+			canvas.restore()
+			val bitmap = BitmapDrawable(resources, bit)
+			pie.setImageDrawable(bitmap)
+			pie.invalidateDrawable(bitmap)
+			
 			
 			return
 		}

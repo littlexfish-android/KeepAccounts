@@ -14,7 +14,7 @@
         android:textAlignment="center"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/pieColorOther"
-        app:layout_constraintTop_toBottomOf="@+id/pieTrans" />
+        app:layout_constraintTop_toTopOf="@+id/pieUsually" />
 
     <ImageView
         android:id="@+id/pieColorOther"
@@ -55,14 +55,14 @@
         android:textAlignment="center"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/pieColorPlay"
-        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+        app:layout_constraintTop_toTopOf="@+id/pieTrans" />
 
     <ImageView
         android:id="@+id/pieColorUsually"
         android:layout_width="10dp"
         android:layout_height="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/pieUsually"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/pieColorFood"
         app:layout_constraintTop_toTopOf="@+id/pieUsually"
         app:srcCompat="@color/pie_usually" />
 
@@ -74,7 +74,7 @@
         android:textAlignment="center"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/pieColorTrans"
-        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+        app:layout_constraintTop_toTopOf="@+id/pieFood" />
 
     <ImageView
         android:id="@+id/pieColorTrans"
@@ -91,6 +91,11 @@
         android:id="@+id/pieChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:rotation="-90"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pie_chart_base" />
@@ -99,6 +104,7 @@
         android:id="@+id/pieFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="@string/food"
         android:textAlignment="center"
         android:textSize="8sp"
@@ -110,7 +116,7 @@
         android:layout_width="10dp"
         android:layout_height="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/pieFood"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/pieChart"
         app:layout_constraintTop_toTopOf="@+id/pieFood"
         app:srcCompat="@color/pie_food" />
 
