@@ -1,6 +1,6 @@
 # KeepAccounts
 
-This project just a practice for me to test Android Studio. Not a completed project.  
+This project just a practice for me to test Android Studio. Just have simple function, not a completed project.  
 You can clone it to fix any function and publish it.
 
 ## Implements
